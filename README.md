@@ -102,7 +102,6 @@ The pipeline is structured around five single-responsibility classes, each encap
 
 ![UML Class Diagram](docs/uml_class_diagram.png)
 
-> The editable diagram is available at [`docs/uml_class_diagram.drawio`](docs/uml_class_diagram.drawio) — open at [draw.io](https://app.diagrams.net).
 
 ### Class Summary
 
