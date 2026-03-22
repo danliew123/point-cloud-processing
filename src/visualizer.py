@@ -78,6 +78,9 @@ class Visualizer:
         visual.update_renderer()
         visual.reset_view_point(True)
 
+        ctr = visual.get_view_control()
+        ctr.rotate(450.0, 0.0)
+
         visual.capture_screen_image(output_path, do_render=True)
         visual.destroy_window()
 
@@ -85,7 +88,7 @@ class Visualizer:
     @staticmethod
     def _normal_line_set(
         pcd: o3d.geometry.PointCloud,
-        scale: float = 0.005,
+        scale: float = 0.3,
         max_points: int = 5000,
     ) -> o3d.geometry.LineSet:
         points = np.asarray(pcd.points)
