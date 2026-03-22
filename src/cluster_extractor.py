@@ -1,3 +1,15 @@
+"""
+cluster_extractor.py
+---------------------
+Performs Euclidean (DBSCAN) clustering to segment a point cloud into
+distinct geometric components.
+ 
+DBSCAN is density-based: it groups points that are closely packed
+together and marks points in low-density regions as noise.  Each
+returned cluster is an independent :class:`open3d.geometry.PointCloud`
+with a unique RGB colour applied for easy visualisation.
+"""
+
 import numpy as np
 import open3d as o3d
 
@@ -16,6 +28,20 @@ _PALETTE = np.array(
 )
 
 class ClusterExtractor:
+    """Segment a point cloud into clusters using DBSCAN.
+ 
+    Parameters
+    ----------
+    eps : float
+        Maximum distance between two points to be considered neighbours
+        (the ε parameter in DBSCAN).
+    min_points : int
+        Minimum number of points required to form a dense region (core
+        point criterion).
+    print_progress : bool
+        Whether Open3D should print a progress bar during clustering.
+    """
+
     def __init__(
             self,
             eps: float = 0.02,
@@ -34,6 +60,26 @@ class ClusterExtractor:
     def extract(
             self, pcd: o3d.geometry.PointCloud
     ) -> list[o3d.geometry.PointCloud]:
+        """Cluster *pcd* and return one coloured cloud per cluster.
+ 
+        Noise points (label == -1) are discarded.
+ 
+        Parameters
+        ----------
+        pcd:
+            Input point cloud (normals optional but preserved in output).
+ 
+        Returns
+        -------
+        list[open3d.geometry.PointCloud]
+            Clusters sorted by descending size (largest first).
+            Each cloud has a uniform colour applied.
+ 
+        Raises
+        ------
+        ValueError
+            If *pcd* is empty.
+        """
         if pcd.is_empty():
             raise ValueError("Cannot cluster empty point cloud")
         

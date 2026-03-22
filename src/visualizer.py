@@ -1,9 +1,25 @@
+"""
+visualizer.py
+-------------
+Headless rendering helpers that save point cloud snapshots to PNG files
+using Open3D's off-screen rendering capabilities.
+ 
+All methods are static so the class acts as a pure utility namespace
+rather than a stateful object.
+"""
+
 from pathlib import Path
  
 import numpy as np
 import open3d as o3d
 
 class Visualizer:
+    """Static helpers for headless point cloud rendering.
+ 
+    All methods save PNG images to disk without opening a GUI window,
+    making them safe to call in CI/CD environments.
+    """
+
     WIDTH: int = 1280
     HEIGHT: int = 720
 
@@ -15,6 +31,22 @@ class Visualizer:
             show_normals: bool = False,
             point_size: float = 2.0,
     ) -> None:
+        """Render *pcd* and save to *output_path* as a PNG.
+ 
+        Parameters
+        ----------
+        pcd:
+            Cloud to render.
+        output_path:
+            Destination file (e.g. ``"outputs/downsampled.png"``).
+        window_name:
+            Title used internally by the render window (invisible in
+            headless mode but useful for debugging).
+        show_normals:
+            When *True* normal lines are drawn on top of the points.
+        point_size:
+            Rendered point radius in pixels.
+        """
         output_path = Path(output_path)
         output_path.parent.mkdir(parents=True, exist_ok=True)
 

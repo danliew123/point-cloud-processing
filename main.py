@@ -1,3 +1,11 @@
+"""
+Point Cloud Processing Pipeline
+================================
+Entry point for the 3D point cloud processing pipeline using Open3D.
+Loads the Eagle dataset, applies downsampling, estimates normals,
+performs Euclidean clustering, and saves rendered outputs.
+"""
+
 import argparse
 from pathlib import Path
 

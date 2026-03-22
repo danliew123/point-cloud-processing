@@ -1,6 +1,22 @@
+"""
+loader.py
+---------
+Responsible for loading point cloud data from Open3D's built-in dataset
+utilities.  Encapsulates all I/O concerns so the rest of the pipeline
+operates exclusively on ``open3d.geometry.PointCloud`` objects.
+"""
+
 import open3d as o3d
 
 class PointCloudLoader:
+    """Load point cloud data from Open3D bundled datasets or a file path.
+ 
+    Parameters
+    ----------
+    file_path : str | None
+        Optional path to a local ``.pcd`` / ``.ply`` file.  When *None*
+        (default) the Eagle dataset shipped with Open3D is used.
+    """
     def __init__(self, file_path: str | None = None) -> None:
         self._file_path = file_path
 
